@@ -43,14 +43,24 @@ class App extends React.Component {
         };
     };
 
-    // Insert form callback functions handleChange and handleSubmit here
-
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
 
         let input = e.target[0].value;
 
+        // check for duplicates => YES? show error and end prematurely
+        if (this.state.guessedLetters.indexOf(input) !== -1) {
+            this.setState((prevState) => {
+                return {
+                    ...prevState,
+                    error: true,
+                    errorMsg: "You typed in a duplicate",
+                };
+            });
+            return;
+        }
+
+        // check for non-alphabets => YES? show error and
         if (!isAllLetters(input)) {
             this.setState((prevState) => {
                 return {
@@ -59,20 +69,12 @@ class App extends React.Component {
                     errorMsg: "Only alphabets pls",
                 };
             });
-        } else {
-            this.setState((prevState) => {
-                if (prevState.currWord.includes(prevState.guessInput)) {
-                    return {
-                        ...prevState,
-                        correctGuesses: prevState.correctGuesses + 1,
-                        guessedLetters: [
-                            ...prevState.guessedLetters,
-                            prevState.guessInput,
-                        ],
-                        guessInput: "",
-                    };
-                }
+            return;
+        }
 
+        this.setState((prevState) => {
+            // check if guess is correct => YES? update guessedLetters array, reset input field, DONT decrease guessesLeft
+            if (prevState.currWord.includes(prevState.guessInput)) {
                 return {
                     ...prevState,
                     guessedLetters: [
@@ -80,15 +82,27 @@ class App extends React.Component {
                         prevState.guessInput,
                     ],
                     guessInput: "",
-                    guessesLeft: prevState.guessesLeft - 1,
                 };
-            });
-        }
+            }
+
+            // check if guess is correct => NO? update guessedLetters array, reset input field, decrease guessesLeft
+            return {
+                ...prevState,
+                guessedLetters: [
+                    ...prevState.guessedLetters,
+                    prevState.guessInput,
+                ],
+                guessInput: "",
+                guessesLeft: prevState.guessesLeft - 1,
+            };
+        });
     };
 
     handleChange = (e) => {
         this.setState((prevState) => {
             let input = e.target.value;
+
+            // check if length of input > 1 => YES? show error message
             if (input.length > 1) {
                 return {
                     ...prevState,
@@ -96,20 +110,13 @@ class App extends React.Component {
                     errorMsg: "Only 1 character pls",
                 };
             }
-            // else if (!isAllLetters(input) || input === "") {
-            //     return {
-            //         ...prevState,
-            //         error: true,
-            //         errorMsg: "Only alphabets pls",
-            //     };
-            // }
-            else {
-                return {
-                    ...prevState,
-                    guessInput: e.target.value,
-                    error: false,
-                };
-            }
+
+            // check if length of input > 1 => NO? update form states
+            return {
+                ...prevState,
+                guessInput: e.target.value,
+                error: false,
+            };
         });
     };
 
@@ -119,6 +126,7 @@ class App extends React.Component {
         let gameResult;
         if (wordWithoutSpace === this.state.currWord) gameResult = "win";
         else if (this.state.guessesLeft === 0) gameResult = "lose";
+
         return (
             <div className="App">
                 <header className="App-header">
