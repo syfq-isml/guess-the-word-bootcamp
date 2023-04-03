@@ -46,7 +46,7 @@ class App extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let input = e.target[0].value;
+        let input = e.target[0].value.toLowerCase();
 
         // check for duplicates => YES? show error and end prematurely
         if (this.state.guessedLetters.indexOf(input) !== -1) {
@@ -74,13 +74,10 @@ class App extends React.Component {
 
         this.setState((prevState) => {
             // check if guess is correct => YES? update guessedLetters array, reset input field, DONT decrease guessesLeft
-            if (prevState.currWord.includes(prevState.guessInput)) {
+            if (prevState.currWord.includes(input)) {
                 return {
                     ...prevState,
-                    guessedLetters: [
-                        ...prevState.guessedLetters,
-                        prevState.guessInput,
-                    ],
+                    guessedLetters: [...prevState.guessedLetters, input],
                     guessInput: "",
                 };
             }
@@ -88,10 +85,7 @@ class App extends React.Component {
             // check if guess is correct => NO? update guessedLetters array, reset input field, decrease guessesLeft
             return {
                 ...prevState,
-                guessedLetters: [
-                    ...prevState.guessedLetters,
-                    prevState.guessInput,
-                ],
+                guessedLetters: [...prevState.guessedLetters, input],
                 guessInput: "",
                 guessesLeft: prevState.guessesLeft - 1,
             };
