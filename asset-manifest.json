@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/guess-the-word-bootcamp/static/css/main.798ab81a.css",
+    "main.js": "/guess-the-word-bootcamp/static/js/main.8fd741b0.js",
+    "static/media/dog_1f415.png": "/guess-the-word-bootcamp/static/media/dog_1f415.9790d833e3910a6a4fe7.png",
+    "static/media/bark.mp3": "/guess-the-word-bootcamp/static/media/bark.cacf39003c22507af7ee.mp3",
+    "static/media/pot-of-food_1f372.png": "/guess-the-word-bootcamp/static/media/pot-of-food_1f372.f96513e52208dd153e33.png",
+    "index.html": "/guess-the-word-bootcamp/index.html",
+    "main.798ab81a.css.map": "/guess-the-word-bootcamp/static/css/main.798ab81a.css.map",
+    "main.8fd741b0.js.map": "/guess-the-word-bootcamp/static/js/main.8fd741b0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.798ab81a.css",
+    "static/js/main.8fd741b0.js"
+  ]
+}
