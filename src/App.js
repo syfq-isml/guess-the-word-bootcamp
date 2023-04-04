@@ -2,7 +2,7 @@ import React from "react";
 import { getRandomWord } from "./utils.js";
 import "./App.css";
 import Header from "./components/Header.js";
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid, styled } from "@mui/material";
 import WordDisplay from "./components/WordDisplay.js";
 import GuessedLetters from "./components/GuessedLetters.js";
 import GuessesLeft from "./components/GuessesLeft.js";
@@ -13,6 +13,18 @@ function isAllLetters(inputtxt) {
     if (inputtxt.match(letters)) return true;
     return false;
 }
+
+const StyledButton = styled(Button)({
+    backgroundColor: "#B5EBC6",
+    color: "#49443a",
+    fontWeight: "700",
+    fontSize: "2rem",
+    padding: "1rem 2rem",
+    boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)",
+    "&:hover": {
+        backgroundColor: "#61D8A8",
+    },
+});
 
 class App extends React.Component {
     constructor(props) {
@@ -120,6 +132,22 @@ class App extends React.Component {
         });
     };
 
+    restartGame = () => {
+        this.setState({
+            // currWord is the current secret word for this round. Update this with this.setState after each round.
+            currWord: getRandomWord(),
+            // guessedLetters stores all letters a user has guessed so far
+            guessedLetters: [],
+
+            correctGuesses: 0,
+
+            guessesLeft: 6,
+            guessInput: "",
+            error: false,
+            errorMsg: "",
+        });
+    };
+
     render() {
         let { wordWithSpace, wordWithoutSpace } = this.generateWordDisplay();
 
@@ -142,16 +170,25 @@ class App extends React.Component {
                                 gameResult={gameResult}
                             />
                             <Grid item xs={12}>
-                                <h3>Type a letter here:</h3>
+                                {gameResult && (
+                                    <StyledButton onClick={this.restartGame}>
+                                        Play Again
+                                    </StyledButton>
+                                )}
+                                {gameResult == null && (
+                                    <h3>Type a letter here:</h3>
+                                )}
                             </Grid>
-                            <GuessForm
-                                handleSubmit={this.handleSubmit}
-                                guessInput={this.state.guessInput}
-                                gameResult={gameResult}
-                                handleChange={this.handleChange}
-                                error={this.state.error}
-                                errorMsg={this.state.errorMsg}
-                            />
+                            {gameResult == null && (
+                                <GuessForm
+                                    handleSubmit={this.handleSubmit}
+                                    guessInput={this.state.guessInput}
+                                    gameResult={gameResult}
+                                    handleChange={this.handleChange}
+                                    error={this.state.error}
+                                    errorMsg={this.state.errorMsg}
+                                />
+                            )}
                         </Grid>
                     </header>
                 </Container>

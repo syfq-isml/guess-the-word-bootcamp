@@ -13,9 +13,14 @@ class Header extends Component {
                     Guess The Word!
                 </Typography>
                 <Typography
-                    variant="h6"
+                    variant="h4"
                     component="h2"
-                    sx={{ margin: "0", padding: "0" }}
+                    sx={{
+                        margin: "0",
+                        padding: "0",
+                        letterSpacing: "7px",
+                        fontWeight: "400",
+                    }}
                 >
                     (or the dog dies)
                 </Typography>

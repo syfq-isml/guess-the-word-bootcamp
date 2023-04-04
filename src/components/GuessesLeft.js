@@ -17,7 +17,7 @@ class GuessesLeft extends Component {
             placeholders.splice(this.props.guessesLeft - 1, 1, knife);
         return (
             <Grid item xs={12}>
-                <Paper>
+                <Paper sx={{ backgroundColor: "#ECFFE8" }}>
                     <Box
                         sx={{
                             display: "flex",

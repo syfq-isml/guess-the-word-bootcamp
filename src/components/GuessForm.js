@@ -1,16 +1,6 @@
 import { Alert, Button, Grid, Paper, Stack, styled } from "@mui/material";
 import React, { Component } from "react";
 
-const StyledButton = styled(Button)({
-    backgroundColor: "#B5EBC6",
-    color: "#49443a",
-    fontWeight: "700",
-    fontSize: "1rem",
-    "&:hover": {
-        backgroundColor: "#61D8A8",
-    },
-});
-
 class GuessForm extends Component {
     render() {
         return (
