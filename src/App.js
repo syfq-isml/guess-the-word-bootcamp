@@ -1,6 +1,12 @@
 import React from "react";
 import { getRandomWord } from "./utils.js";
 import "./App.css";
+import Header from "./components/Header.js";
+import { Container, Grid } from "@mui/material";
+import WordDisplay from "./components/WordDisplay.js";
+import GuessedLetters from "./components/GuessedLetters.js";
+import GuessesLeft from "./components/GuessesLeft.js";
+import GuessForm from "./components/GuessForm.js";
 
 function isAllLetters(inputtxt) {
     var letters = /^[A-Za-z]+$/;
@@ -123,46 +129,26 @@ class App extends React.Component {
 
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1>Guess The Word 🚀</h1>
-                    <h3>Word Display</h3>
-                    {wordWithSpace}
-                    <h3>Guessed Letters</h3>
-                    {this.state.guessedLetters.length > 0
-                        ? this.state.guessedLetters.join(", ")
-                        : "-"}
-                    <h3>Input</h3>
-                    <form autoComplete="off" onSubmit={this.handleSubmit}>
-                        <input
-                            required
-                            name="guessInput"
-                            value={this.state.guessInput}
-                            onChange={this.handleChange}
-                            disabled={
-                                gameResult === "lose"
-                                    ? true
-                                    : gameResult === "win"
-                                    ? true
-                                    : false
-                            }
-                        />
-                        <button
-                            type="submit"
-                            disabled={
-                                gameResult === "lose"
-                                    ? true
-                                    : gameResult === "win"
-                                    ? true
-                                    : false
-                            }
-                        >
-                            Guess!
-                        </button>
-                        {this.state.error && <h3>{this.state.errorMsg}</h3>}
-                        {gameResult === "lose" && <h3>Game over...</h3>}
-                        {gameResult === "win" && <h3>You win!</h3>}
-                    </form>
-                </header>
+                <Container>
+                    <header className="App-header">
+                        <Grid container spacing={2}>
+                            <Header />
+                            <WordDisplay wordWithSpace={wordWithSpace} />
+                            <GuessedLetters
+                                guessedLetters={this.state.guessedLetters}
+                            />
+                            <GuessesLeft />
+                            <GuessForm
+                                handleSubmit={this.handleSubmit}
+                                guessInput={this.state.guessInput}
+                                handleChange={this.handleChange}
+                                gameResult={gameResult}
+                                error={this.state.error}
+                                errorMsg={this.state.errorMsg}
+                            />
+                        </Grid>
+                    </header>
+                </Container>
             </div>
         );
     }
