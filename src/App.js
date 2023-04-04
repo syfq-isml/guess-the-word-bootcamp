@@ -137,10 +137,12 @@ class App extends React.Component {
                             <GuessedLetters
                                 guessedLetters={this.state.guessedLetters}
                             />
-                            <GuessesLeft />
+                            <GuessesLeft
+                                guessesLeft={this.state.guessesLeft}
+                                gameResult={gameResult}
+                            />
                             <Grid item xs={12}>
-                                {gameResult === "lose" && <h1>Game Over...</h1>}
-                                {gameResult === "win" && <h1>You win!</h1>}
+                                <h3>Type a letter here:</h3>
                             </Grid>
                             <GuessForm
                                 handleSubmit={this.handleSubmit}

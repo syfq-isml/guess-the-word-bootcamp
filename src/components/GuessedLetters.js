@@ -26,6 +26,7 @@ class GuessedLetters extends Component {
                         {this.props.guessedLetters.sort().map((letter) => {
                             return (
                                 <Paper
+                                    key={crypto.randomUUID()}
                                     sx={{
                                         width: "30px",
                                         height: "30px",
