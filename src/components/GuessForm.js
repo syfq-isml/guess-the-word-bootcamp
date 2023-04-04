@@ -1,15 +1,31 @@
-import { Grid, Paper } from "@mui/material";
+import { Alert, Button, Grid, Paper, Stack, styled } from "@mui/material";
 import React, { Component } from "react";
+
+const StyledButton = styled(Button)({
+    backgroundColor: "#B5EBC6",
+    color: "#49443a",
+    fontWeight: "700",
+    fontSize: "1rem",
+    "&:hover": {
+        backgroundColor: "#61D8A8",
+    },
+});
 
 class GuessForm extends Component {
     render() {
         return (
             <Grid item xs={12}>
-                <Paper>
-                    <form autoComplete="off" onSubmit={this.props.handleSubmit}>
+                <form autoComplete="off" onSubmit={this.props.handleSubmit}>
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={1}
+                    >
                         <input
                             required
                             name="guessInput"
+                            type="text"
                             value={this.props.guessInput}
                             onChange={this.props.handleChange}
                             disabled={
@@ -20,7 +36,10 @@ class GuessForm extends Component {
                                     : false
                             }
                         />
-                        <button
+
+                        {/* <StyledButton
+                            disableRipple
+                            variant="contained"
                             type="submit"
                             disabled={
                                 this.props.gameResult === "lose"
@@ -31,14 +50,20 @@ class GuessForm extends Component {
                             }
                         >
                             Guess!
-                        </button>
-                        {this.props.error && <h3>{this.props.errorMsg}</h3>}
-                        {this.props.gameResult === "lose" && (
-                            <h3>Game over...</h3>
+                        </StyledButton> */}
+                        {this.props.error && (
+                            <Alert
+                                variant="filled"
+                                severity="error"
+                                sx={{
+                                    backgroundColor: "#F64F4F",
+                                }}
+                            >
+                                {this.props.errorMsg}
+                            </Alert>
                         )}
-                        {this.props.gameResult === "win" && <h3>You win!</h3>}
-                    </form>
-                </Paper>
+                    </Stack>
+                </form>
             </Grid>
         );
     }

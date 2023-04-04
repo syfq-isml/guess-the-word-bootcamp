@@ -60,7 +60,7 @@ class App extends React.Component {
                 return {
                     ...prevState,
                     error: true,
-                    errorMsg: "You typed in a duplicate",
+                    errorMsg: "Oops, you've typed in a duplicate letter!",
                 };
             });
             return;
@@ -72,7 +72,7 @@ class App extends React.Component {
                 return {
                     ...prevState,
                     error: true,
-                    errorMsg: "Only alphabets pls",
+                    errorMsg: "Only enter alphabets please!",
                 };
             });
             return;
@@ -107,7 +107,7 @@ class App extends React.Component {
                 return {
                     ...prevState,
                     error: true,
-                    errorMsg: "Only 1 character pls",
+                    errorMsg: "Only enter 1 character please!",
                 };
             }
 
@@ -138,11 +138,15 @@ class App extends React.Component {
                                 guessedLetters={this.state.guessedLetters}
                             />
                             <GuessesLeft />
+                            <Grid item xs={12}>
+                                {gameResult === "lose" && <h1>Game Over...</h1>}
+                                {gameResult === "win" && <h1>You win!</h1>}
+                            </Grid>
                             <GuessForm
                                 handleSubmit={this.handleSubmit}
                                 guessInput={this.state.guessInput}
-                                handleChange={this.handleChange}
                                 gameResult={gameResult}
+                                handleChange={this.handleChange}
                                 error={this.state.error}
                                 errorMsg={this.state.errorMsg}
                             />
